@@ -1,4 +1,4 @@
-import axios from 'axios';
+import {create} from 'axios';
 //import { SecureStorageAdapter } from '@/helpers/adapters/secure-storage.adapter';
 import { Platform } from 'react-native';
 
@@ -12,9 +12,10 @@ export const API_URL =
     : Platform.OS === 'ios'
     ? process.env.EXPO_PUBLIC_API_URL_IOS
     : process.env.EXPO_PUBLIC_API_URL_ANDROID;
-
+    
+console.log({STAGE, [Platform.OS]:API_URL})
 //! creamos el objeto de axios con el baseUrl
-const productsApi = axios.create({
+const productsApi = create({
   baseURL: API_URL,
 });
 

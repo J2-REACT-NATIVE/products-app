@@ -9,7 +9,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "expo lint",
-    "start:lan": "REACT_NATIVE_PACKAGER_HOSTNAME=$(ipconfig getifaddr en0) expo start --host lan -c"
+    "start:lan": "REACT_NATIVE_PACKAGER_HOSTNAME=$(ipconfig getifaddr en10) expo start --host lan -c"
   },
   "dependencies": {
     "@expo/vector-icons": "^15.0.3",
