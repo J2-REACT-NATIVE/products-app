@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: 'bold',
+    fontFamily:"KaniBold",
     lineHeight: 32,
   },
   subtitle: {

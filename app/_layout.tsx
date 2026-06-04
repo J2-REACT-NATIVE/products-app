@@ -1,4 +1,4 @@
-import { HeaderShownContext } from "@react-navigation/elements";
+
 import {
   DarkTheme,
   DefaultTheme,
@@ -8,9 +8,10 @@ import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useColorScheme } from "react-native";
-import "react-native-reanimated";
+
 
 SplashScreen.preventAutoHideAsync();
 
@@ -38,12 +39,15 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+    <GestureHandlerRootView>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <Stack screenOptions={{ headerShown: false }}>
         {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} /> */}
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>
+    </GestureHandlerRootView>
+    
   );
 }

@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 
-import { router } from 'expo-router';
+import { Href, router } from 'expo-router';
 
 
 import { useAuthStore } from '@/presentation/auth/store/useAuthStore';
@@ -51,6 +51,7 @@ const LoginScreen = () => {
   };
 
   return (
+    // Para evitar que el teclado tape el formulario de login ocupando todo el espacio
     <KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
       <ScrollView
         style={{
@@ -60,6 +61,7 @@ const LoginScreen = () => {
       >
         <View
           style={{
+            //35% de la pantalla
             paddingTop: height * 0.35,
           }}
         >
@@ -114,7 +116,7 @@ const LoginScreen = () => {
           }}
         >
           <ThemedText>¿No tienes cuenta?</ThemedText>
-          <ThemedLink href="/auth/register" style={{ marginHorizontal: 5 }}>
+          <ThemedLink href={'/auth/register' as Href} style={{ marginHorizontal: 5 }}>
             Crear cuenta
           </ThemedLink>
         </View>

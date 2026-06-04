@@ -19,16 +19,20 @@ const ThemedTextInput = ({ icon, ...rest }: Props) => {
   const textColor = useThemeColor({}, 'text');
 
   const [isActive, setIsActive] = useState(false);
+  // el inputRef es de tipo TextInput
   const inputRef = useRef<TextInput>(null);
 
   return (
     <View
       style={{
         ...styles.border,
+        //se define el color del borde del view segun el state isActive
         borderColor: isActive ? primaryColor : '#ccc',
       }}
+      // Apenas se toca el view se dispara este evento y se establece el foco en el input si es que tiene un valor gracias al inputRef
       onTouchStart={() => inputRef.current?.focus()}
     >
+      {/* Si tenemos el icono lo renderizamos segun el icon que vino por las props */}
       {icon && (
         <Ionicons
           name={icon}
@@ -41,7 +45,9 @@ const ThemedTextInput = ({ icon, ...rest }: Props) => {
       <TextInput
         ref={inputRef}
         placeholderTextColor="#5c5c5c"
+        //cuando tiene el foco
         onFocus={() => setIsActive(true)}
+        //cuando pierde el foco
         onBlur={() => setIsActive(false)}
         style={{
           color: textColor,
