@@ -1,37 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Alert,
   KeyboardAvoidingView,
   ScrollView,
   useWindowDimensions,
   View,
-} from 'react-native';
+} from "react-native";
 
-import { Href, router } from 'expo-router';
+import { Href, router } from "expo-router";
 
-
-import { useAuthStore } from '@/presentation/auth/store/useAuthStore';
-import { useThemeColor } from '@/presentation/theme/hooks/use-theme-color';
-import { ThemedText } from '@/presentation/theme/components/themed-text';
-import ThemedTextInput from '@/presentation/theme/components/ThemedTextInput';
-import ThemedButton from '@/presentation/theme/components/ThemedButton';
-import ThemedLink from '@/presentation/theme/components/ThemedLink';
+import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
+import { useThemeColor } from "@/presentation/theme/hooks/use-theme-color";
+import { ThemedText } from "@/presentation/theme/components/themed-text";
+import ThemedTextInput from "@/presentation/theme/components/ThemedTextInput";
+import ThemedButton from "@/presentation/theme/components/ThemedButton";
+import ThemedLink from "@/presentation/theme/components/ThemedLink";
+import { delay } from "@/helpers/utils";
 
 const LoginScreen = () => {
-
   //! tomamos el metodo login del Store
   const { login } = useAuthStore();
 
   const { height } = useWindowDimensions();
-  const backgroundColor = useThemeColor({}, 'background');
+  const backgroundColor = useThemeColor({}, "background");
 
-
-   //! para bloquear el boton cuando este posteando
+  //! para bloquear el boton cuando este posteando
   const [isPosting, setIsPosting] = useState(false);
   //! el formulario se va a manejar con useState()
   const [form, setForm] = useState({
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   });
 
   const onLogin = async () => {
@@ -45,16 +43,19 @@ const LoginScreen = () => {
     }
 
     setIsPosting(true);
+
+    await delay(5000);
+
     const wasSuccessful = await login(email, password);
     setIsPosting(false);
 
     if (wasSuccessful) {
       //! si es exitoso redireccionamos al home / que esta en /(products-app)/(home)
-      router.replace('/');
+      router.replace("/");
       return;
     }
 
-    Alert.alert('Error', 'Usuario o contraseña no son correctos');
+    Alert.alert("Error", "Usuario o contraseña no son correctos");
   };
 
   return (
@@ -73,7 +74,7 @@ const LoginScreen = () => {
           }}
         >
           <ThemedText type="title">Ingresar</ThemedText>
-          <ThemedText style={{ color: 'grey' }}>
+          <ThemedText style={{ color: "grey" }}>
             Por favor ingrese para continuar
           </ThemedText>
         </View>
@@ -109,7 +110,7 @@ const LoginScreen = () => {
           onPress={onLogin}
           disabled={isPosting}
         >
-          Ingresar
+          {!isPosting ? "Ingresar" : "Verificando"}
         </ThemedButton>
 
         {/* Spacer */}
@@ -118,13 +119,16 @@ const LoginScreen = () => {
         {/* Enlace a registro */}
         <View
           style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
+            flexDirection: "row",
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
           <ThemedText>¿No tienes cuenta?</ThemedText>
-          <ThemedLink href={'/auth/register' as Href} style={{ marginHorizontal: 5 }}>
+          <ThemedLink
+            href={"/auth/register" as Href}
+            style={{ marginHorizontal: 5 }}
+          >
             Crear cuenta
           </ThemedLink>
         </View>
