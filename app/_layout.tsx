@@ -11,6 +11,7 @@ import { StatusBar } from "expo-status-bar";
 import React, { useEffect } from "react";
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useColorScheme } from "react-native";
+import { useThemeColor } from "@/presentation/theme/hooks/use-theme-color";
 
 
 SplashScreen.preventAutoHideAsync();
@@ -21,7 +22,7 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
-
+ const backgroundColor=useThemeColor({},'background')
   const [loaded] = useFonts({
     KanitRegular: require("../assets/fonts/Kanit-Regular.ttf"),
     KanitBold: require("../assets/fonts/Kanit-Bold.ttf"),
@@ -39,7 +40,7 @@ export default function RootLayout() {
   }
 
   return (
-    <GestureHandlerRootView>
+    <GestureHandlerRootView style={{backgroundColor:backgroundColor , flex:1}}>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <Stack screenOptions={{ headerShown: false }}>
         {/* <Stack.Screen name="(tabs)" options={{ headerShown: false }} />

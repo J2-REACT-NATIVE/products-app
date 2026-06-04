@@ -19,6 +19,7 @@ const ThemedButton = ({ children, icon, ...rest }: Props) => {
         },
         styles.button,
       ]}
+      //! mandamos el resto de propiedades donde van a venir las props que se usan desde ThemedButton en la pagina de /auth/login/index.tsx y /auth/register/index.tsx
       {...rest}
     >
       <Text style={{ color: 'white' }}>{children}</Text>

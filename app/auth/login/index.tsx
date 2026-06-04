@@ -18,18 +18,24 @@ import ThemedButton from '@/presentation/theme/components/ThemedButton';
 import ThemedLink from '@/presentation/theme/components/ThemedLink';
 
 const LoginScreen = () => {
+
+  //! tomamos el metodo login del Store
   const { login } = useAuthStore();
 
   const { height } = useWindowDimensions();
   const backgroundColor = useThemeColor({}, 'background');
 
+
+   //! para bloquear el boton cuando este posteando
   const [isPosting, setIsPosting] = useState(false);
+  //! el formulario se va a manejar con useState()
   const [form, setForm] = useState({
     email: '',
     password: '',
   });
 
   const onLogin = async () => {
+    //!desestructuramos el objeto form
     const { email, password } = form;
 
     console.log({ email, password });
@@ -43,6 +49,7 @@ const LoginScreen = () => {
     setIsPosting(false);
 
     if (wasSuccessful) {
+      //! si es exitoso redireccionamos al home / que esta en /(products-app)/(home)
       router.replace('/');
       return;
     }
@@ -79,6 +86,7 @@ const LoginScreen = () => {
             autoCapitalize="none"
             icon="mail-outline"
             value={form.email}
+            //! es el texto que nos interesa que cambie
             onChangeText={(value) => setForm({ ...form, email: value })}
           />
 
