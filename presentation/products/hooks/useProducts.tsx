@@ -16,8 +16,8 @@ export const useProducts = () => {
     //! allPages [[p1,p2,p3],[p4,p5,p6],[p7,p8,p9]], Contiene todas las páginas descargadas hasta el momento. si se esta en la pagina inicial (0) allPages.length es igual a 1 la siguiente peticion sera getProducts(20, 1 * 20);
     getNextPageParam: (lastPage, allPages) => allPages.length,
   });
-  console.log(productsQuery.data)
-  console.log(productsQuery.data?.pages.flat()|| [])
+  //console.log(productsQuery.data)
+  //console.log(productsQuery.data?.pages.flat()|| [])
   return {
     //! retornamos el UseInfiniteQueryResult
     productsQuery,

@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import {
   View,
-  Text,
   KeyboardAvoidingView,
   ScrollView,
   Platform,
@@ -19,9 +18,10 @@ import { ThemedView } from "@/presentation/theme/components/themed-view";
 import ProductImages from "@/presentation/products/components/ProductImages";
 
 const ProductScreen = () => {
+  //obtenemos el id del pathparam
   const { id } = useLocalSearchParams();
   const navigation = useNavigation();
-
+  // para que siempre sea un string
   const { productQuery, productMutation } = useProduct(`${id}`);
 
   useEffect(() => {
@@ -30,6 +30,7 @@ const ProductScreen = () => {
     });
   }, []);
 
+  //este efecto se ejecutara si hay datos y se encargara de mostrar el titulo delproducto en la pagina
   useEffect(() => {
     if (productQuery.data) {
       navigation.setOptions({
@@ -38,6 +39,7 @@ const ProductScreen = () => {
     }
   }, [productQuery.data]);
 
+  // Si se esta cargando el producto
   if (productQuery.isLoading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -45,7 +47,7 @@ const ProductScreen = () => {
       </View>
     );
   }
-
+  //si el producto no se encontro
   if (!productQuery.data) {
     return <Redirect href="/(products-app)/(home)" />;
   }

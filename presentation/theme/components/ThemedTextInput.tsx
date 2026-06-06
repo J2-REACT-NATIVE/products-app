@@ -1,22 +1,24 @@
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
 import {
-  View,
-  Text,
-  TextInputProps,
+  StyleProp,
   StyleSheet,
   TextInput,
-} from 'react-native';
+  TextInputProps,
+  View,
+  ViewStyle,
+} from "react-native";
 
-import { useRef, useState } from 'react';
-import { useThemeColor } from '../hooks/use-theme-color';
+import { useRef, useState } from "react";
+import { useThemeColor } from "../hooks/use-theme-color";
 
-interface Props extends TextInputProps {
+interface Props extends Omit<TextInputProps, "style"> {
   icon?: keyof typeof Ionicons.glyphMap;
+  style?: StyleProp<ViewStyle>;
 }
 
-const ThemedTextInput = ({ icon, ...rest }: Props) => {
-  const primaryColor = useThemeColor({}, 'primary');
-  const textColor = useThemeColor({}, 'text');
+const ThemedTextInput = ({ icon, style, ...rest }: Props) => {
+  const primaryColor = useThemeColor({}, "primary");
+  const textColor = useThemeColor({}, "text");
 
   const [isActive, setIsActive] = useState(false);
   // el inputRef es de tipo TextInput
@@ -24,11 +26,14 @@ const ThemedTextInput = ({ icon, ...rest }: Props) => {
 
   return (
     <View
-      style={{
-        ...styles.border,
-        //se define el color del borde del view segun el state isActive
-        borderColor: isActive ? primaryColor : '#ccc',
-      }}
+      style={[
+        {
+          ...styles.border,
+          //se define el color del borde del view segun el state isActive
+          borderColor: isActive ? primaryColor : "#ccc",
+        },
+        style,
+      ]}
       // Apenas se toca el view se dispara este evento y se establece el foco en el input si es que tiene un valor gracias al inputRef
       onTouchStart={() => inputRef.current?.focus()}
     >
@@ -67,7 +72,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 5,
     marginBottom: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
 });
