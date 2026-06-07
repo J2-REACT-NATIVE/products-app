@@ -1,11 +1,14 @@
 import { View, Text, Image, FlatList } from 'react-native';
 
 interface Props {
+  //imagenes como un array de strings
   images: string[];
 }
 
 const ProductImages = ({ images }: Props) => {
+  //!Si no hay imagenesRenderizamos una imagen de fallback
   if (images.length === 0) {
+    
     return (
       <View
         style={{
@@ -23,8 +26,10 @@ const ProductImages = ({ images }: Props) => {
 
   return (
     <FlatList
+    // asignamis a data el array de imagenes
       data={images}
       keyExtractor={(item) => item}
+      //El flat list sera horizontal
       horizontal
       showsHorizontalScrollIndicator={false}
       renderItem={({ item }) => (

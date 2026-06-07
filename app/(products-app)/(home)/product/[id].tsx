@@ -64,6 +64,7 @@ const ProductScreen = () => {
           behavior={Platform.OS === "ios" ? "padding" : undefined}
         >
           <ScrollView>
+            {/* Carrusel de imagenes */}
             <ProductImages images={values.images} />
 
             <ThemedView style={{ marginHorizontal: 10, marginTop: 20 }}>
