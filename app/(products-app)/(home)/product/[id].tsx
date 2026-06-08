@@ -16,6 +16,8 @@ import { Formik } from "formik";
 import { useProduct } from "@/presentation/products/hooks/useProduct";
 import { ThemedView } from "@/presentation/theme/components/themed-view";
 import ProductImages from "@/presentation/products/components/ProductImages";
+import ThemeButtonGroup from "@/presentation/products/components/ThemeButtonGroup";
+import { Size } from "@/core/products/interfaces/product.interface";
 
 const ProductScreen = () => {
   //obtenemos el id del pathparam
@@ -56,15 +58,24 @@ const ProductScreen = () => {
 
   return (
     <Formik
+      //initialvalues es obligatorio
       initialValues={product}
-      onSubmit={(values) => productMutation.mutate(values)}
+      onSubmit={
+        //!value ya es un Product
+        //(productLike)=>console.log(productLike)
+        //!Llamamos al metodo que hace la mutacion
+        (values) => productMutation.mutate(values)
+      }
     >
-      {({ values, handleSubmit, handleChange, setFieldValue }) => (
+      {
+        // Desestructuramos las propiedades de Formik
+      ({ values, handleSubmit, handleChange, setFieldValue }) => (
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : undefined}
         >
           <ScrollView>
             {/* Carrusel de imagenes */}
+            {/* value ya es un Product */}
             <ProductImages images={values.images} />
 
             <ThemedView style={{ marginHorizontal: 10, marginTop: 20 }}>
@@ -119,31 +130,36 @@ const ProductScreen = () => {
                 marginHorizontal: 10,
               }}
             >
-              {/* <ThemeButtonGroup
+              <ThemeButtonGroup
                 options={['XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL']}
                 selectedOptions={values.sizes}
                 onSelect={(selectedSize) => {
                   const newSizesValue = values.sizes.includes(
                     selectedSize as Size
                   )
-                    ? values.sizes.filter((s) => s !== selectedSize)
-                    : [...values.sizes, selectedSize];
-
+                    ? 
+                    //si incluye el size seleccionado lo sacamos de la lista
+                    values.sizes.filter((s) => s !== selectedSize)
+                    : 
+                    //si no incluye el size seleccionado lo incluimos en la lista
+                    [...values.sizes, selectedSize];
+                  //'sizez' es el nombre del input
                   setFieldValue('sizes', newSizesValue);
                 }}
-              /> */}
+              />
 
-              {/* <ThemeButtonGroup
+              <ThemeButtonGroup
                 options={['kid', 'men', 'women', 'unisex']}
                 selectedOptions={[values.gender]}
                 onSelect={(selectedOption) =>
+                  //'gender' es el nombre del input
                   setFieldValue('gender', selectedOption)
                 }
-              /> */}
+              />
             </ThemedView>
 
             {/* Botón para guardar */}
-
+            
             <View
               style={{
                 marginHorizontal: 10,
