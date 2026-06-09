@@ -22,8 +22,10 @@ import { Size } from "@/core/products/interfaces/product.interface";
 const ProductScreen = () => {
   //obtenemos el id del pathparam
   const { id } = useLocalSearchParams();
+  console.log(id)
   const navigation = useNavigation();
   // para que siempre sea un string
+  //! si id es igual a new productQuery.data tendra el onjeto emptyProduct con valores vacios que serviran para estableces los valores en el formulario para que el usuario puedea crear un producto nuevo.
   const { productQuery, productMutation } = useProduct(`${id}`);
 
   useEffect(() => {
@@ -32,7 +34,7 @@ const ProductScreen = () => {
     });
   }, []);
 
-  //este efecto se ejecutara si hay datos y se encargara de mostrar el titulo delproducto en la pagina
+  //este efecto se ejecutara si hay datos y se encargara de mostrar el titulo del producto en la pagina
   useEffect(() => {
     if (productQuery.data) {
       navigation.setOptions({

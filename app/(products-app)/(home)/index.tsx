@@ -3,6 +3,8 @@ import { useProducts } from '@/presentation/products/hooks/useProducts';
 import { ThemedText } from '@/presentation/theme/components/themed-text';
 import { useThemeColor } from '@/presentation/theme/hooks/use-theme-color';
 import { ActivityIndicator, View } from 'react-native';
+import { FAB } from '../../../presentation/products/components/FAB';
+import { router } from 'expo-router';
 const HomeScreen = () => {
   const primary = useThemeColor({}, 'primary');
   const { productsQuery, loadNextPage } = useProducts();
@@ -27,7 +29,8 @@ const HomeScreen = () => {
         products={productsQuery.data?.pages.flat() ?? []}
         loadNextPage={loadNextPage}
       />
-
+      {/* va a navegar a /product/[id] */}
+      <FAB iconName={'add-outline'} onPress={()=> router.push('/(products-app)/(home)/product/new') } />
     </View>
   );
 };

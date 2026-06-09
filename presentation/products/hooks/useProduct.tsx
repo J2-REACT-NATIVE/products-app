@@ -8,7 +8,7 @@ import { updateCreateProduct } from "@/core/products/actions/create-update-produ
 
 export const useProduct = (productId: string) => {
   const queryClient = useQueryClient();
-  const productIdRef = useRef(productId); // new / UUID
+  const productIdRef = useRef(productId); //! el valor ouede ser new o UUID
 
   const productQuery = useQuery({
     queryKey: ["products", productId],
@@ -22,14 +22,17 @@ export const useProduct = (productId: string) => {
       console.log(data);
       return await updateCreateProduct({
         ...data,
+        //! Para poder asignar el valor del id en el objeto que se enviara como argumento a updateCreateProduct()
         id: productIdRef.current,
       });
     },
 
     onSuccess(data: Product) {
+      //en data vienen los valores que se retornaron en la propiedad mutationFn.
+      //! con esto controlamos que el ususario al no salir de la pantalla de agregar nuevo producto, en caso de dar click en grabar la variable productIdRef ya va a tener el uuid devuelto por la base de datos al momento de grabar por lo tanto al momento de ejecutarse el mutationFunction se ira por la accion updateProduct()
       productIdRef.current = data.id;
 
-      //!Invalidamos queries
+      //!Invalidamos queries cuando la mutacion fue exitosa
       queryClient.invalidateQueries({
         queryKey: ["products", "infinite"],
       });

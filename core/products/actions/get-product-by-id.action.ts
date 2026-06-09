@@ -15,6 +15,8 @@ const emptyProduct: Product = {
 };
 
 export const getProductById = async (id: string): Promise<Product> => {
+  console.log({getProductById: id})
+  //! Cuando el usuario le da click en agregar nuevo producto el id vendra con valor new y se devolvera el objeto emptyProduct para que cuando se puestra la pantalla /product/[id] el formulario tenga los valores incluidos en emptyPorduct para que pueda crear un nuevo producto.
   if (id === 'new') return emptyProduct;
 
   try {
