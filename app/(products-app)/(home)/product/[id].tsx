@@ -7,7 +7,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { Redirect, useLocalSearchParams, useNavigation } from "expo-router";
+import { Href, Redirect, router, useLocalSearchParams, useNavigation } from "expo-router";
 
 import ThemedTextInput from "@/presentation/theme/components/ThemedTextInput";
 
@@ -18,6 +18,7 @@ import { ThemedView } from "@/presentation/theme/components/themed-view";
 import ProductImages from "@/presentation/products/components/ProductImages";
 import ThemeButtonGroup from "@/presentation/products/components/ThemeButtonGroup";
 import { Size } from "@/core/products/interfaces/product.interface";
+import MenuIconButton from "@/presentation/theme/components/MenuIconButton";
 
 const ProductScreen = () => {
   //obtenemos el id del pathparam
@@ -30,7 +31,9 @@ const ProductScreen = () => {
 
   useEffect(() => {
     navigation.setOptions({
-      headerRight: () => <Ionicons name="camera-outline" size={25} />,
+      //headerRight: () => <Ionicons name="camera-outline" size={25} />,
+      headerRight: () => <MenuIconButton onPress={()=>router.push(`/camera` as Href)} icon={"camera-outline"} />
+      
     });
   }, []);
 
