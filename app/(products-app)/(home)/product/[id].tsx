@@ -19,8 +19,11 @@ import ProductImages from "@/presentation/products/components/ProductImages";
 import ThemeButtonGroup from "@/presentation/products/components/ThemeButtonGroup";
 import { Size } from "@/core/products/interfaces/product.interface";
 import MenuIconButton from "@/presentation/theme/components/MenuIconButton";
+import { useCameraStore } from "@/presentation/store/useCameraStore";
 
 const ProductScreen = () => {
+
+  const { selectedImages, clearImages } = useCameraStore();
   //obtenemos el id del pathparam
   const { id } = useLocalSearchParams();
   console.log(id)
@@ -28,6 +31,13 @@ const ProductScreen = () => {
   // para que siempre sea un string
   //! si id es igual a new productQuery.data tendra el onjeto emptyProduct con valores vacios que serviran para estableces los valores en el formulario para que el usuario puedea crear un producto nuevo.
   const { productQuery, productMutation } = useProduct(`${id}`);
+
+  //!Limpiamos las imagenes que estan en el store
+    useEffect(() => {
+    return () => {
+      clearImages();
+    };
+  }, []);
 
   useEffect(() => {
     navigation.setOptions({
