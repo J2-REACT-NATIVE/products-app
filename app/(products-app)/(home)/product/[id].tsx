@@ -32,7 +32,7 @@ const ProductScreen = () => {
   //! si id es igual a new productQuery.data tendra el onjeto emptyProduct con valores vacios que serviran para estableces los valores en el formulario para que el usuario puedea crear un producto nuevo.
   const { productQuery, productMutation } = useProduct(`${id}`);
 
-  //!Limpiamos las imagenes que estan en el store
+  //!Limpiamos las imagenes que estan en el store cuando se desmonta el componente para que no vayan a otro producto.
     useEffect(() => {
     return () => {
       clearImages();
@@ -91,7 +91,8 @@ const ProductScreen = () => {
           <ScrollView>
             {/* Carrusel de imagenes */}
             {/* value ya es un Product */}
-            <ProductImages images={values.images} />
+            {/* <ProductImages images={values.images} /> */}
+            <ProductImages images={[...product.images,...selectedImages]} />
 
             <ThemedView style={{ marginHorizontal: 10, marginTop: 20 }}>
               <ThemedTextInput

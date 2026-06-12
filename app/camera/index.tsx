@@ -125,19 +125,22 @@ const { addSelectedImage } = useCameraStore();
   const onRetakePhoto = () => {
     setSelectedImage(undefined);
   };
-
+  //! Metodo para seleccionar imagenes de la galeria
   const onPickImages = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      //mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      mediaTypes: ["images"],
       quality: 0.5,
       aspect: [4, 3],
       // allowsEditing: true,
+      //! multiple seleccion
       allowsMultipleSelection: true,
       selectionLimit: 5,
     });
 
     if (result.canceled) return;
 
+    //! iteramos el result.assets para grabar las imagenes en el store
     result.assets.forEach((asset) => {
       //! grabamos en el store
       addSelectedImage(asset.uri);
@@ -172,7 +175,7 @@ const { addSelectedImage } = useCameraStore();
 
         <FlipCameraButton onPress={toggleCameraFacing} />
 
-        {/* TODO:  GalleryButton */}
+        {/* Llamamos a la galeria */}
         <GalleryButton onPress={onPickImages} />
 
         <ReturnCancelButton onPress={onReturnCancel} />

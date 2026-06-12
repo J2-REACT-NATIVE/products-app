@@ -19,3 +19,8 @@
 test1@google.com
 Abc123
 ```
+
+## Para obtenert la ip
+```
+ipconfig getifaddr en0
+```
