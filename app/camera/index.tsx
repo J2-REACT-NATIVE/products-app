@@ -21,7 +21,7 @@ import { useThemeColor } from "@/presentation/theme/hooks/use-theme-color";
 import { useCameraStore } from "@/presentation/store/useCameraStore";
 
 export default function CameraScreen() {
-const { addSelectedImage } = useCameraStore();
+  const { addSelectedImage } = useCameraStore();
 
   const [facing, setFacing] = useState<CameraType>("back");
   //
@@ -117,7 +117,7 @@ const { addSelectedImage } = useCameraStore();
     await MediaLibrary.createAssetAsync(selectedImage);
     //! Grabamos la imagen en el store
     addSelectedImage(selectedImage);
-    console.log("onPictureAccepted")
+    console.log("onPictureAccepted");
     //! Cerramos la camara
     router.dismiss();
   };
@@ -136,6 +136,9 @@ const { addSelectedImage } = useCameraStore();
       //! multiple seleccion
       allowsMultipleSelection: true,
       selectionLimit: 5,
+      // Primero evita que iOS entregue HEIC desde la galería usando modo compatible:
+      preferredAssetRepresentationMode:
+        ImagePicker.UIImagePickerPreferredAssetRepresentationMode.Compatible,
     });
 
     if (result.canceled) return;

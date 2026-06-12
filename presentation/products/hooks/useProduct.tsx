@@ -5,8 +5,10 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRef } from "react";
 import { Alert } from "react-native";
 import { updateCreateProduct } from "@/core/products/actions/create-update-product.action";
+import { useCameraStore } from "@/presentation/store/useCameraStore";
 
 export const useProduct = (productId: string) => {
+  const {clearImages} = useCameraStore()
   const queryClient = useQueryClient();
   const productIdRef = useRef(productId); //! el valor ouede ser new o UUID
 
@@ -19,7 +21,7 @@ export const useProduct = (productId: string) => {
   // Mutación
   const productMutation = useMutation({
     mutationFn: async (data: Product) => {
-      console.log(data);
+      //console.log(data);
       return await updateCreateProduct({
         ...data,
         //! Para poder asignar el valor del id en el objeto que se enviara como argumento a updateCreateProduct()
@@ -31,6 +33,8 @@ export const useProduct = (productId: string) => {
       //en data vienen los valores que se retornaron en la propiedad mutationFn.
       //! con esto controlamos que el ususario al no salir de la pantalla de agregar nuevo producto, en caso de dar click en grabar la variable productIdRef ya va a tener el uuid devuelto por la base de datos al momento de grabar por lo tanto al momento de ejecutarse el mutationFunction se ira por la accion updateProduct()
       productIdRef.current = data.id;
+      //! despues de una carga exitosa limpiamos el store de images
+      clearImages()
 
       //!Invalidamos queries cuando la mutacion fue exitosa
       queryClient.invalidateQueries({
@@ -39,7 +43,7 @@ export const useProduct = (productId: string) => {
       queryClient.invalidateQueries({
         queryKey: ["products", data.id],
       });
-
+      console.log("Entro sl Success")
       Alert.alert("Producto guardado", `${data.title} se guardo correctamente`);
     },
   });
