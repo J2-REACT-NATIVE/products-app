@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { View, Text, ActivityIndicator } from "react-native";
+import { View, ActivityIndicator } from "react-native";
 import { Redirect, Stack } from "expo-router";
 
 import { useAuthStore } from "@/presentation/auth/store/useAuthStore";
@@ -16,7 +16,7 @@ const CheckAuthenticationLayout = () => {
   //!llamamos a checkstatus()
   useEffect(() => {
     checkStatus();
-  }, []);
+  }, [checkStatus]);
 
   if (status === "checking") {
     return (
@@ -59,7 +59,7 @@ const CheckAuthenticationLayout = () => {
         }}
       />
       <Stack.Screen
-        name="product/[id]"
+        name="(home)/product/[id]"
         options={{
           title: "Producto"
           }}
