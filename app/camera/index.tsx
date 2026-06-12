@@ -173,20 +173,16 @@ export default function CameraScreen() {
   //! Caso contrario si no tenemos una foto redenrezamos la CameraView
   return (
     <View style={styles.container}>
-      <CameraView ref={cameraRef} style={styles.camera} facing={facing}>
-        <ShutterButton onPress={onShutterButtonPress} />
+      <CameraView ref={cameraRef} style={styles.camera} facing={facing} />
 
-        <FlipCameraButton onPress={toggleCameraFacing} />
+      <ShutterButton onPress={onShutterButtonPress} />
 
-        {/* Llamamos a la galeria */}
-        <GalleryButton onPress={onPickImages} />
+      <FlipCameraButton onPress={toggleCameraFacing} />
 
-        <ReturnCancelButton onPress={onReturnCancel} />
+      {/* Llamamos a la galeria */}
+      <GalleryButton onPress={onPickImages} />
 
-        {/* <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
-            <Text style={styles.text}>Flip Camera</Text>
-          </TouchableOpacity> */}
-      </CameraView>
+      <ReturnCancelButton onPress={onReturnCancel} />
     </View>
   );
 }
